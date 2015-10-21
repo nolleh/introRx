@@ -63,26 +63,29 @@ public class Program
    
   public static void Main (string[] args)
   {
-    var observable1 = Range(0, 5);
-    observable1.Subscribe(Console.WriteLine);
-    // 예상 출력
-    // 0
-    // 1
-    // 2
-    // 3
-    // 4
+    // var observable1 = Range(0, 5);
+    // observable1.Subscribe(Console.WriteLine);
+    // // 예상 출력
+    // // 0
+    // // 1
+    // // 2
+    // // 3
+    // // 4
      
-    var observable2 = Timer(1000);
-    observable2.Subscribe(Console.WriteLine);
-    // 예상 출력 (1000 ms 후..)
-    // 0
+    // var observable2 = Timer(1000);
+    // observable2.Subscribe(Console.WriteLine);
+    // // 예상 출력 (1000 ms 후..)
+    // // 0
      
-    var observable3 = Interval(1000);
-    observable3.Subscribe(Console.WriteLine);
+    // var observable3 = Interval(1000);
+    // observable3.Subscribe(Console.WriteLine);
     // 예상 출력 (1000 ms 마다..)
     // 0
     // 1
     // 2
     // …
+
+
+    new Exercise2().start();
   }
 }

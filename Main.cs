@@ -85,7 +85,7 @@ public class Program
     // 2
     // …
 
-
-    new Exercise2().start();
+    // new Exercise2().start();
+    new Exercise3().start();
   }
 }

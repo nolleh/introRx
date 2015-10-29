@@ -11,11 +11,11 @@ public static class Extension {
     Func<TSource, bool> predicate) {
 
     return Observable.Create<TSource>(o => {
-      source.Subscribe(item => {
+
+      Action<TSource> act = item => { 
         if (predicate(item)) o.OnNext(item);
-      }, 
-      item => o.OnCompleted());
-      return Disposable.Empty;
+      };
+      return source.Subscribe(act, err => o.OnError(err), ()=> o.OnCompleted());
     });
   }
 
@@ -27,16 +27,15 @@ public static class Extension {
     bool flag = false;
 
     return Observable.Create<TSource>(o => {
-      source.Subscribe(item => {
+      return source.Subscribe(item => {
         if (!flag && predicate(item)) ;
         else { 
           o.OnNext(item);
           flag = true;
         }
       },
-      item => o.OnCompleted());
-
-      return Disposable.Empty;
+      err => o.OnError(err),
+      () => o.OnCompleted());
     });
 
   }
@@ -44,16 +43,14 @@ public static class Extension {
   public static IObservable<TSource> Distinct<TSource>(
     this IObservable<TSource> source) {
 
-    List<TSource> list = new List<TSource>(); 
+    HashSet<TSource> hashSet = new HashSet<TSource>(); 
     return Observable.Create<TSource>(o => {
-      source.Subscribe(item => {
-        if (!list.Contains(item)) {
+      return source.Subscribe(item => {
+        if (!hashSet.Contains(item)) {
           o.OnNext(item);
-          list.Add(item);
+          hashSet.Add(item);
         }
-      });
-
-      return Disposable.Empty;
+      }, err => o.OnError(err), ()=> o.OnCompleted());
     });
   }
 }
@@ -66,7 +63,7 @@ public class Exercise3 {
     Console.WriteLine("--------Where With [1,2,3,4,5,1,2] -------");
     new int[]{1,2,3,4,5,1,2}.ToObservable()
       .Where(x=> x>1).Subscribe(Console.WriteLine);
-    // 2 ~ 5, 2
+    // 2,3,4,5,2
     Console.WriteLine("--------SkipWhile With [1,2,3,4,5,1,2] -------");
     new int []{1,2,3,4,5,1,2}.ToObservable()
       .SkipWhile(x=> x<3).Subscribe(Console.WriteLine);
@@ -75,7 +72,5 @@ public class Exercise3 {
     new int []{1,2,3,4,5,1,2}.ToObservable()
       .Distinct().Subscribe(Console.WriteLine);
     // 1,2,3,4,5
-
-
   }
 }

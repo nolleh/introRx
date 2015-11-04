@@ -28,9 +28,9 @@ namespace Exercise4 {
   public class Exercise {
   
     public void start() {
-  	  Console.WriteLine("------- Exercise4 -------");
+      Console.WriteLine("------- Exercise4 -------");
   	
-  	  Console.WriteLine("--------Where With [1,2,3,4,5,1,2] -------");
+      Console.WriteLine("--------Where With [1,2,3,4,5,1,2] -------");
       new int[]{1,2,3,4,5,1,2}.ToObservable()
         .Where(x=> x>1).Subscribe(Console.WriteLine);
       // 2,3,4,5,2

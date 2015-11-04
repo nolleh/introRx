@@ -1,3 +1,4 @@
+using Exercise4;
 public class Program
 {
   public static void Main (string[] args)
@@ -5,6 +6,7 @@ public class Program
 
     // new Exercise1().start();
     // new Exercise2().start();
-    new Exercise3().start();
+    // new Exercise3().start();
+    new Exercise().start();
   }
 }

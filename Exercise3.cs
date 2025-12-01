@@ -28,7 +28,7 @@ public static class Extension {
 
     return Observable.Create<TSource>(o => {
       return source.Subscribe(item => {
-        if (!flag && predicate(item)) ;
+        if (!flag && predicate(item));
         else { 
           o.OnNext(item);
           flag = true;
